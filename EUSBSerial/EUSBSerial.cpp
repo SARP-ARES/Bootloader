@@ -11,6 +11,10 @@ EUSBSerial::~EUSBSerial() {
     pc.disconnect();
 }
 
+bool EUSBSerial::sync() {
+    return pc.sync() == 0;
+}
+
 bool EUSBSerial::printf(const char* format, ...) {
     if (!pc.connected())
         return false;

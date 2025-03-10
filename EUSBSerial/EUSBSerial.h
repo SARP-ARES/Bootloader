@@ -32,6 +32,7 @@ public:
 
     bool printf(const char* format, ...);
     bool write(const char* buf, size_t size);
+    bool sync();
 
     bool readline(char* buf, size_t size);
 
