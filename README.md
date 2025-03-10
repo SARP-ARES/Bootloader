@@ -1,2 +1,4 @@
-# Motor Control / Power Board Testing CodeBase
-Codebase in order to test the base functionality of the [MCP Hardware](https://github.com/explosion33/ARES/tree/main/Hardware/motor_control_design)
+# Bootloader
+STM32401CCUx Mbed OS bootloader.
+
+uses 0x10000 bytes of memory leaving 0x30000 bytes free for main program
