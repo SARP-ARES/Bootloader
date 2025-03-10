@@ -10,28 +10,20 @@
 // =============== THREADS ===============
     volatile bool led_running = true;
     void led_indicator() {
-        PwmOut led(PB_9);
+        DigitalOut ledb(PA_8);
+        DigitalOut ledg(PA_15);
 
-        bool dir = true;
-        float val = 0.5;
+        ledb.write(0);
+        ledg.write(1);
 
         while (led_running) {
-            led.write(val);
-            if (dir) {
-                val += 0.05;
-                if (val >= 1.0)
-                    dir = false;
-            }
-            else {
-                val -= 0.05;
-                if (val <= 0.2)
-                    dir = true;
-            }
-
-            ThisThread::sleep_for(10ms);
+            ledb = !ledb;
+            ledg = !ledg;
+            ThisThread::sleep_for(50ms);
         }
 
-        led.write(0);
+        ledb.write(0);
+        ledg.write(0);
     }
 
 
@@ -168,8 +160,6 @@ bool serial_boot(EUSBSerial* pc) {
         size_t to_read = (program_size - addr < 256) ? program_size - addr : 256;
         //pc->printf("log:expecting %d bytes\n", to_read);
         if (!_get_bytes(buf, to_read, pc)) {
-            //DigitalOut errorled(PB_10);
-            //errorled.write(1);
             pc->printf("log:failed to read ... continuing\n");
             ThisThread::sleep_for(100ms);
             continue;
